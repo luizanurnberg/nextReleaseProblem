@@ -16,11 +16,11 @@ def solve():
 
     model.add_component(f'costTotalConstraint-', Constraint(expr=sum(model.x[i] * instances.c[i] for i in range(instances.m)) <= instances.L))
 
-    for i in range(instances.m):
-        for j in range(instances.m):
-            if instances.dm[i][j] == 1:
-                model.add_component(
-                    f'reqDependency-{i}-{j}', Constraint(expr=model.x[i] >= model.x[j]))
+    # for i in range(instances.m):
+    #     for j in range(instances.m):
+    #         if instances.dm[i][j] == 1:
+    #             model.add_component(
+    #                 f'reqDependency-{i}-{j}', Constraint(expr=model.x[i] >= model.x[j]))
 
     for cli in range(instances.n):
         for req in range(instances.m):
@@ -39,3 +39,6 @@ def solve():
         print(model.x[i]())
 
     print(f'Objective function: {model.obj.expr()}')
+
+
+print(solve())
