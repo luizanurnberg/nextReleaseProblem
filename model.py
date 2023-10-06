@@ -13,6 +13,7 @@ c = instances.c
 dm = instances.dm
 cm = instances.cm
 
+
 def solve():
 
     instances.generate(seed)
@@ -50,5 +51,6 @@ def solve():
         print(model.x[i]())
 
     print(f'Objective function: {model.obj.expr()}')
+
 
 print(solve())

@@ -10,21 +10,22 @@ n = 5
 m = random.randint(1, 10)
 
 v = []
-    for a in range(n):
-        v.append(random.randint(1, 100))
+for a in range(n):
+    v.append(random.randint(1, 100))
+
 L = 1
 
 c = []
-    for b in range(m):
-        c.append(random.randint(1, 10))
+for b in range(m):
+    c.append(random.randint(1, 10))
 
-dm = generateDm.generateDm(m) 
+dm = generateDm.generateDm(m)
 
 cm = []
-    for i in range(n):
-        cm.append([])
-        for j in range(m):
-            cm[i].append(random.randint(0, 1))
+for i in range(n):
+    cm.append([])
+    for j in range(m):
+        cm[i].append(random.randint(0, 1))
 
 
 def show():
@@ -39,6 +40,8 @@ def show():
     print(f'Matriz de associação de clientes:')
     for l in cm:
         print(l)
+
+
 print("\nValores gerados:")
 print(f'n = {n}')
 print(f'm = {m}')
