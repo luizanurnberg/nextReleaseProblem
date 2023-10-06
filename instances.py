@@ -1,34 +1,26 @@
 import random
 import generateDm
+import model
 import sys
 
-n = None
-m = None
-v = None
-L = 100
-c = None
-dm = None
-cm = None
+seed = model.seed
 
+n = 5
 
-def generate(seed):
-    global n, m, v, L, c, dm, cm
+m = random.randint(1, 10)
 
-    random.seed(seed)
-
-    n = random.randint(1, 10)
-    m = random.randint(1, 10)
-    v = []
+v = []
     for a in range(n):
-        v.append(random.randint(1, 10))
+        v.append(random.randint(1, 100))
+L = 1
 
-    c = []
+c = []
     for b in range(m):
         c.append(random.randint(1, 10))
 
-    dm = generateDm
+dm = generateDm.generateDm(m) 
 
-    cm = []
+cm = []
     for i in range(n):
         cm.append([])
         for j in range(m):
@@ -47,6 +39,12 @@ def show():
     print(f'Matriz de associação de clientes:')
     for l in cm:
         print(l)
-
-# generate(1)
-# show()
+print("\nValores gerados:")
+print(f'n = {n}')
+print(f'm = {m}')
+print(f'v = {v}')
+print(f'L = {L}')
+print(f'c = {c}')
+print(f'dm = {dm}')
+print(f'cm = {cm}')
+#  show()

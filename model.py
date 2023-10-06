@@ -5,37 +5,13 @@ import sys
 
 seed = int(sys.argv[1])
 
-n = None
-m = None
-v = None
+n = instances.n
+m = instances.m
+v = instances.v
 L = 100
-c = None
-dm = None
-cm = None
-
-
-def read_instances(filename):
-    global n, m, v, L, c, dm, cm
-
-    try:
-        with open(filename, 'r') as file:
-            lines = file.readlines()
-            n, m = map(int, lines[0].split())
-            v = list(map(int, lines[1].split()))
-            c = list(map(int, lines[2].split()))
-            L = int(lines[3])
-            dm = generateDm
-            cm = []
-            for line in lines[4:]:
-                cm.append(list(map(int, line.split())))
-
-    except FileNotFoundError:
-        print(f"File '{filename}' not found.")
-        sys.exit(1)
-    except Exception as e:
-        print(f"An error occurred while reading the file: {e}")
-        sys.exit(1)
-
+c = instances.c
+dm = instances.dm
+cm = instances.cm
 
 def solve():
 
@@ -75,7 +51,4 @@ def solve():
 
     print(f'Objective function: {model.obj.expr()}')
 
-
-modelInstances = instances.generate(seed)
-read_instances(modelInstances)
 print(solve())
