@@ -2,25 +2,28 @@ from pyomo.environ import *
 import instances
 import sys
 
-semente= int(sys.argv[1])
+seed = int(sys.argv[1])
+
 
 def solve():
 
-    instances.gera(semente)
+    instances.generate(seed)
 
     model = ConcreteModel()
     model.x = Var(range(instances.m), domain=Binary)
     model.y = Var(range(instances.n), domain=Binary)
 
-    model.obj = Objective(expr=sum(model.y[i] * instances.v[i] for i in range(instances.n)), sense=maximize)
+    model.obj = Objective(expr=sum(
+        model.y[i] * instances.v[i] for i in range(instances.n)), sense=maximize)
 
-    model.add_component(f'costTotalConstraint-', Constraint(expr=sum(model.x[i] * instances.c[i] for i in range(instances.m)) <= instances.L))
+    model.add_component(f'costTotalConstraint-', Constraint(expr=sum(
+        model.x[i] * instances.c[i] for i in range(instances.m)) <= instances.L))
 
-    # for i in range(instances.m):
-    #     for j in range(instances.m):
-    #         if instances.dm[i][j] == 1:
-    #             model.add_component(
-    #                 f'reqDependency-{i}-{j}', Constraint(expr=model.x[i] >= model.x[j]))
+    for i in range(instances.m):
+        for j in range(instances.m):
+            if instances.dm[i][j] == 1:
+                model.add_component(
+                    f'reqDependency-{i}-{j}', Constraint(expr=model.x[i] >= model.x[j]))
 
     for cli in range(instances.n):
         for req in range(instances.m):
