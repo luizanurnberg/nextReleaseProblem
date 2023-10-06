@@ -16,8 +16,6 @@ cm = instances.cm
 
 def solve():
 
-    instances.generate(seed)
-
     model = ConcreteModel()
     model.x = Var(range(instances.m), domain=Binary)
     model.y = Var(range(instances.n), domain=Binary)
