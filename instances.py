@@ -1,4 +1,5 @@
 import random
+import generateDm
 import sys
 
 n = None
@@ -31,10 +32,9 @@ def generate(seed):
     for b in range(m):
         c.append(random.randint(1, 10))
 
-    dm = []
-    # falta fazer esse kkk
-    cm = []
+    dm = generateDm
 
+    cm = []
     for i in range(n):
         cm.append([])
         for j in range(m):
