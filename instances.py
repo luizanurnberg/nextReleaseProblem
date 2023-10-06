@@ -3,17 +3,11 @@ import generateDm
 import sys
 
 n = None
-
 m = None
-
 v = None
-
 L = 100
-
 c = None
-
 dm = None
-
 cm = None
 
 
