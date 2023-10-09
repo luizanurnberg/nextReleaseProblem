@@ -1,31 +1,30 @@
 import random
 import generateDm
-import model
-import sys
 
-seed = model.seed
+def generateInstances(seed, value):
+    global n, m, v, L, c, dm, cm
+    m= value
+    n = 5
 
-n = 5
+    # m = random.randint(1, 10)
 
-m = random.randint(1, 10)
+    v = []
+    for a in range(n):
+        v.append(random.randint(1, 100))
 
-v = []
-for a in range(n):
-    v.append(random.randint(1, 100))
+    L = 100
+    
+    c = []
+    for b in range(m):
+        c.append(random.randint(1, 10))
 
-L = 1
+    dm = generateDm.generateDm(m)
 
-c = []
-for b in range(m):
-    c.append(random.randint(1, 10))
-
-dm = generateDm.generateDm(m)
-
-cm = []
-for i in range(n):
-    cm.append([])
-    for j in range(m):
-        cm[i].append(random.randint(0, 1))
+    cm = []
+    for i in range(n):
+        cm.append([])
+        for j in range(m):
+            cm[i].append(random.randint(0, 1))
 
 
 def show():
@@ -42,12 +41,12 @@ def show():
         print(l)
 
 
-print("\nValores gerados:")
-print(f'n = {n}')
-print(f'm = {m}')
-print(f'v = {v}')
-print(f'L = {L}')
-print(f'c = {c}')
-print(f'dm = {dm}')
-print(f'cm = {cm}')
+# print("\nValores gerados:")
+# print(f'n = {n}')
+# print(f'm = {m}')
+# print(f'v = {v}')
+# print(f'L = {L}')
+# print(f'c = {c}')
+# print(f'dm = {dm}')
+# print(f'cm = {cm}')
 #  show()

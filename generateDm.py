@@ -8,7 +8,7 @@ def generateDm(size):
 
     def is_valid_position(row, column):
         neighbors = [(row-1, column), (row+1, column),
-                     (row, column-1), (row, column+1)]
+                    (row, column-1), (row, column+1)]
         for r, c in neighbors:
             if 0 <= r < size and 0 <= c < size and matrix[r][c] == 1:
                 return False

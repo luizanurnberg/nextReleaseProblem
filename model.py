@@ -4,15 +4,8 @@ import instances
 import sys
 
 seed = int(sys.argv[1])
-
-n = instances.n
-m = instances.m
-v = instances.v
-L = 100
-c = instances.c
-dm = instances.dm
-cm = instances.cm
-
+value_m= int(sys.argv[2])
+instances.generateInstances(seed, value_m)
 
 def solve():
 
