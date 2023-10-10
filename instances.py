@@ -4,15 +4,13 @@ import generateDm
 def generateInstances(seed, value):
     global n, m, v, L, c, dm, cm
 
-    m= value
+    m = value
 
     n = 5
 
     v = []
     for a in range(n):
         v.append(random.randint(1, 10))
-
-    L = 100
     
     c = []
     for b in range(m):
@@ -26,7 +24,13 @@ def generateInstances(seed, value):
         for j in range(m):
             cm[i].append(random.randint(0, 1))
 
-    print(f'v = {v}')
-    print(f'c = {c}')
-    print(f'dm = {dm}')
-    print(f'cm = {cm}')
+    alpha = 0.5  
+    total_cost = sum(c)
+    L = alpha * total_cost
+
+    new = '\n'
+    print(f'L = {L}\n')
+    print(f'v = {v}\n')
+    print(f'c = {c}\n')
+    print(f'dm = \n{new.join([str(line) for line in dm])}\n')
+    print(f'cm = \n{new.join([str(line) for line in cm])}')

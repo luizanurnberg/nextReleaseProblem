@@ -4,7 +4,7 @@ import instances
 import sys
 
 seed = int(sys.argv[1])
-value_m= int(sys.argv[2])
+value_m = int(sys.argv[2])
 instances.generateInstances(seed, value_m)
 
 def solve():
@@ -32,7 +32,7 @@ def solve():
                     f'reqClientValidity-{cli}-{req}', Constraint(expr=model.x[req] >= model.y[cli]))
 
     solver = SolverFactory('glpk')
-    results = solver.solve(model, timelimit=100).write()
+    results = solver.solve(model, timelimit=100)
     print(f'\n\nSelected clients')
     for i in range(instances.n):
         print(model.y[i]())
@@ -41,7 +41,7 @@ def solve():
     for i in range(instances.m):
         print(model.x[i]())
 
-    print(f'Objective function: {model.obj.expr()}')
+    print(f'\n\nObjective function: {model.obj.expr()}')
 
 
-print(solve())
+solve()
