@@ -1,4 +1,3 @@
-import generateDm
 from pyomo.environ import *
 import instances
 import sys
