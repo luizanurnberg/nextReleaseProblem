@@ -45,11 +45,10 @@ def generateInstances(seed, value):
 
     dm = generateDm(m)
 
-    cm = []
+    cm = [[0] * m for _ in range(n)]
     for i in range(n):
-        cm.append([])
-        for j in range(m):
-            cm[i].append(random.randint(0, 1))
+        j = random.randint(0, m - 1)
+        cm[i][j] = 1
 
     alpha = 0.5  
     total_cost = sum(c)
