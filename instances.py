@@ -2,7 +2,7 @@ import random
 
 def generateDm(size):
     num_elements = size * size
-    num_ones = int(0.3 * num_elements)
+    num_ones = int(0.2 * num_elements)
     matrix = [[0 for _ in range(size)] for _ in range(size)]
 
     def is_valid_position(row, column):
@@ -41,7 +41,7 @@ def generateInstances(seed, value):
     
     c = []
     for b in range(m):
-        c.append(random.randint(1, 100))
+        c.append(random.randint(1, 10))
 
     dm = generateDm(m)
 
@@ -50,7 +50,15 @@ def generateInstances(seed, value):
         j = random.randint(0, m - 1)
         cm[i][j] = 1
 
-    alpha = 0.5  
+    for j in range(m):
+        assigned = False
+        while not assigned:
+            i = random.randint(0, n - 1)
+            if cm[i][j] == 0:
+                cm[i][j] = 1
+                assigned = True
+
+    alpha = 0.9 
     total_cost = sum(c)
     L = alpha * total_cost
 
