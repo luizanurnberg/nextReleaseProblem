@@ -1,4 +1,5 @@
 from pyomo.environ import *
+import time
 import instances
 import sys
 
@@ -11,8 +12,8 @@ value_n = int(sys.argv[2])
 value_m = int(sys.argv[3])
 instances.generateInstances(seed, value_n, value_m)
 
-
 def solve():
+    start_time = time.time()
 
     model = ConcreteModel()
     model.x = Var(range(instances.m), domain=Binary)
@@ -41,14 +42,21 @@ def solve():
 
     print(f'\n\nRequirements for the next release')
     for i in range(instances.m):
-        print(model.x[i]())
+        print(f'{i + 1}° Requirement: {model.x[i]()}')
 
     print(f'\n\nSelected clients')
     for i in range(instances.n):
-        print(model.y[i]())
+        print(f'{i + 1}° Client: {model.y[i]()}')
 
     print(f'\n\nObjective function: {model.obj.expr()}')
 
+    end_time = time.time()
+    execution_time = end_time - start_time
+
+    print(f'Seed: {seed}')
+    print(f'Quantidade de requisitos: {instances.m}')
+    print(f'Quantidade de clientes: {instances.n}')
+    print(f"Tempo de execução: {execution_time} segundos")
 
 solve()
 

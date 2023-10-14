@@ -1,7 +1,6 @@
 import random
 from math import floor, ceil
 
-
 def generateDm(size):
     parent_probability = 0.2
     level_density = [0.6, 0.2, 0.15, 0.05]
@@ -30,7 +29,6 @@ def generateDm(size):
                     matrix[parent_node][node] = 1
 
     return matrix
-
 
 def generateInstances(seed, value_n, value_m):
     global n, m, v, L, c, dm, cm
@@ -71,6 +69,7 @@ def generateInstances(seed, value_n, value_m):
     alpha = 0.4
     total_cost = sum(c)
     L = alpha * total_cost
+    L = round(L, 2)
 
     new = '\n'
     print(f'L = {L}\n')
