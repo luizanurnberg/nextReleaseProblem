@@ -2,9 +2,15 @@ from pyomo.environ import *
 import instances
 import sys
 
+if len(sys.argv) != 4:
+    print("Para executar: passar 'py model.py seed n m' onde seed é a semente, n é a quantidade de clientes e m é a quantidade de requisitos")
+    sys.exit(1)
+
 seed = int(sys.argv[1])
-value_m = int(sys.argv[2])
-instances.generateInstances(seed, value_m)
+value_n = int(sys.argv[2])
+value_m = int(sys.argv[3])
+instances.generateInstances(seed, value_n, value_m)
+
 
 def solve():
 
@@ -32,15 +38,19 @@ def solve():
 
     solver = SolverFactory('glpk')
     results = solver.solve(model, timelimit=100)
-    print(f'\n\nSelected clients')
-    for i in range(instances.n):
-        print(model.y[i]())
 
     print(f'\n\nRequirements for the next release')
     for i in range(instances.m):
         print(model.x[i]())
 
+    print(f'\n\nSelected clients')
+    for i in range(instances.n):
+        print(model.y[i]())
+
     print(f'\n\nObjective function: {model.obj.expr()}')
 
 
 solve()
+
+if name == "main":
+    solve()
