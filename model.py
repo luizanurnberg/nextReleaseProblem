@@ -38,7 +38,7 @@ def solve():
                     f'reqClientValidity-{cli}-{req}', Constraint(expr=model.x[req] >= model.y[cli]))
 
     solver = SolverFactory('glpk')
-    results = solver.solve(model, timelimit=100)
+    results = solver.solve(model, timelimit=200)
 
     print(f'\n\nRequirements for the next release')
     for i in range(instances.m):

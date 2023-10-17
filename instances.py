@@ -2,8 +2,14 @@ import random
 from math import floor, ceil
 
 def generateDm(size):
-    parent_probability = 0.2
-    level_density = [0.6, 0.2, 0.15, 0.05]
+    
+    if size < 200:
+        parent_probability = 0.2
+        level_density = [0.6, 0.2, 0.15, 0.05]
+    elif size >= 200:
+        parent_probability = 0.01
+        level_density = [0.5, 0.3, 0.15, 0.05]
+
     level_nodes = [[] for _ in range(len(level_density))]
 
     level_amount = []
