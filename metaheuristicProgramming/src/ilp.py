@@ -19,22 +19,22 @@ def formulation1_transformed():
     instance.transformation1()
 
     model = ConcreteModel()
-    model.x = Var(range(instance.n), domain=Binary)
-    model.y = Var(range(instance.m), domain=Binary)
+    model.x = Var(range(instance.n), domain = Binary)
+    model.y = Var(range(instance.m), domain = Binary)
 
     model.obj = Objective(
-        expr=sum(instance.w[i] * model.y[i] for i in range(instance.m)), sense=maximize
+        expr = sum(instance.w[i] * model.y[i] for i in range(instance.m)), sense = maximize
     )
 
     model.cons = ConstraintList()
 
-    model.cons.add(expr=sum(instance.c[i] * model.x[i] for i in range(instance.n)) <= instance.b)
+    model.cons.add(expr = sum(instance.c[i] * model.x[i] for i in range(instance.n)) <= instance.b)
 
     for pair in instance.Q:
-        model.cons.add(expr=model.x[pair[0]] >= model.y[pair[1]])
+        model.cons.add(expr = model.x[pair[0]] >= model.y[pair[1]])
 
     solver = SolverFactory('glpk')
-    results = solver.solve(model, timelimit=1000)
+    results = solver.solve(model, timelimit = 1000)
     return model.obj.expr(), results, model
 
 def solve(formulation):
@@ -89,7 +89,7 @@ for customer, data in sorted_customers:
     #     for dep in dependencies:
     #         print(f"  Requirement {dep[0]} depends on Requirement {dep[1]}")
 
-#----------------Created client's binary vector-----------------
+#----------------Created client binary vector-----------------
 num_customers = instance.m
 customer_vector = [0] * num_customers
 
@@ -116,9 +116,9 @@ def semi_greedy_heuristic(customer_requirements_dict, customer_vector, k, instan
             customer_weight += req_weight
             selected_requirements.append((req, req_weight))
 
-        # print("Client selected:", customer_idx)
-        # print("Requirements selected:", selected_requirements)
-        # print("Requirement's weight:", customer_weight)
+        print("Client selected:", customer_idx)
+        print("Requirements selected:", selected_requirements)
+        print("Requirement's weight:", customer_weight)
 
         if total_weight + customer_weight <= instance.b:
             customer_vector[customer_idx] = 1
