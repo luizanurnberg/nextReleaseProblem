@@ -23,7 +23,6 @@ def reset():
     b = 0
     S = []
 
-
 def read(path, factor):
     global n, m, c, w, v, P, Q, f, b, S
     reset()
@@ -71,17 +70,19 @@ def read(path, factor):
         for req2, cus in Q:
             if req == req2: S[-1].append(cus)
 
-
 def transformation1():
     global n, m, c, w, v, P, Q, f, b, S
-    for req, cus in Q:
-        for reqi, reqj in P:
-            if req == reqj:
-                if (reqi, cus) not in Q:
-                    Q.append((reqi, cus))
+    novel = True
+    while novel:
+        novel = False
+        for req, cus in Q:
+            for reqi, reqj in P:
+                if req == reqj:
+                    if (reqi, cus) not in Q:
+                        Q.append((reqi, cus))
+                        novel = True
     S = []
     for req in range(n):
         S.append([])
         for req2, cus in Q:
             if req == req2: S[-1].append(cus)
-
