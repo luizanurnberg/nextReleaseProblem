@@ -10,37 +10,55 @@ def generate_customer_requirements_dict(instance):
             customer_requirements_dict[cus] = {'weight': instance.w[cus], 'requirements': []}
         if req not in customer_requirements_dict[cus]['requirements']:
             customer_requirements_dict[cus]['requirements'].append(req)
+    
+    # Print the customer and their requirements
+    for customer, data in customer_requirements_dict.items():
+        print(f"Customer: {customer}")
+        print(f"Weight: {data['weight']}")
+        print(f"Requirements: {data['requirements']}")
+        print("\n")
+    
     return customer_requirements_dict
 
 def can_add(customer, total_cost, added_requirements):
+    additional_cost = 0
     for req in customer_requirements_dict[customer]['requirements']:
         if added_requirements[req] == 0:
-            total_cost += instance.c[req]
-            if total_cost <= instance.b:
-                added_requirements[req] += 1
-                print("total_cost", total_cost)
-                print("instance.b", instance.b)
-                return True, total_cost
-            else:
-                return False, total_cost
-    return False, total_cost
+            additional_cost += instance.c[req]
+    if total_cost + additional_cost <= instance.b:
+        for req in customer_requirements_dict[customer]['requirements']:
+            added_requirements[req] += 1
+        print("total_cost", total_cost)
+        print("instance.b", instance.b)
+        total_cost += additional_cost
+        return True, total_cost
+    else:
+        return False, total_cost
 
 def semi_greedy_heuristic(customer_requirements_dict, solution, k, instance):
     remaining_customers = list(range(instance.m))
     total_cost = 0
     added_requirements = [0 for _ in range(instance.n)]
+    obj_value = 0
 
     while len(remaining_customers) > 0:
-        customer = random.choice(remaining_customers)
+        customer = random.choice(remaining_customers) #inserir semi gulosa aqui 
+        
         remaining_customers.remove(customer)
-        print("customer", customer)
         
         can_add_result, total_cost = can_add(customer, total_cost, added_requirements)
         
         if can_add_result:
             solution[customer] = 1
+            obj_value += instance.v[customer]
 
     print('req usage count:', added_requirements)
+    print('obj value:', obj_value)
+    for i in range(len(solution)):
+        print(f"Customer {i + 1}: Selected = {solution[i]}")
+
+    selected_requirements = [i for i, count in enumerate(added_requirements) if count > 0]
+    print('Selected Requirements:', selected_requirements)
     return solution, total_cost
 
 path = sys.argv[1]
