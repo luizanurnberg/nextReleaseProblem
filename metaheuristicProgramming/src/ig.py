@@ -11,7 +11,6 @@ def generate_customer_requirements_dict(instance):
         if req not in customer_requirements_dict[cus]['requirements']:
             customer_requirements_dict[cus]['requirements'].append(req)
     
-    # Print the customer and their requirements
     for customer, data in customer_requirements_dict.items():
         print(f"Customer: {customer}")
         print(f"Weight: {data['weight']}")
@@ -35,15 +34,23 @@ def can_add(customer, total_cost, added_requirements):
     else:
         return False, total_cost
 
+def select_customer(remaining_customers, customer_requirements_dict, k):
+    sorted_customers = sorted(remaining_customers, key=lambda x: customer_requirements_dict[x]['weight'], reverse=True)
+
+    selected_customers_count = max(1, int(k * len(sorted_customers)))
+    selected_customers = random.sample(sorted_customers[:selected_customers_count], 1)
+    print("selected_customers", selected_customers)
+    return selected_customers[0]
+
 def semi_greedy_heuristic(customer_requirements_dict, solution, k, instance):
     remaining_customers = list(range(instance.m))
     total_cost = 0
     added_requirements = [0 for _ in range(instance.n)]
     obj_value = 0
 
-    while len(remaining_customers) > 0:
-        customer = random.choice(remaining_customers) #inserir semi gulosa aqui 
-        
+    while remaining_customers:
+
+        customer = select_customer(remaining_customers, customer_requirements_dict, k)
         remaining_customers.remove(customer)
         
         can_add_result, total_cost = can_add(customer, total_cost, added_requirements)
