@@ -49,7 +49,7 @@ def heuristic_construction(customer_requirements_dict, solution, k, instance, ad
         remaining_customers.remove(customer)
         can_add_result, total_cost = can_add(customer, total_cost, added_requirements)
         
-        if can_add_result:
+        if can_add_result and len(selected_customers) <= instance.m*k:
             solution[customer] = 1
             obj_value += instance.v[customer]
             selected_customers.append(customer)
@@ -62,13 +62,11 @@ def heuristic_construction(customer_requirements_dict, solution, k, instance, ad
     # heuristic_destruction(customer_requirements_dict, solution, j, instance, added_requirements, total_cost, selected_customers, d)
     return solution, total_cost, selected_customers, added_requirements, obj_value
             
-def heuristic_destruction(customer_requirements_dict, solution, j, instance, d):
+def heuristic_destruction(customer_requirements_dict, solution, j, instance, d, selected_customers,  total_cost, obj_value):
     
-    total_cost = 0
     added_requirements = [0 for _ in range(instance.n)]
-    selected_customers = []
     num_customers_remove = math.ceil(len(selected_customers) * d)
-
+    
     # print(len([x for x in solution if x == 1]))
 
     for _ in range(num_customers_remove):
@@ -76,9 +74,10 @@ def heuristic_destruction(customer_requirements_dict, solution, j, instance, d):
         selected_customers.remove(customer)
         can_remove_result, total_cost = can_remove(customer, total_cost, added_requirements)
         
-        if can_remove_result:
+        if can_remove_result :
             solution[customer] = 0 
-            obj_value += instance.v[customer]
+            if obj_value!=0:
+                obj_value -= instance.v[customer]
             
     # print(len([x for x in solution if x == 0]))
     # print(len([x for x in solution if x == 1]))
@@ -88,6 +87,8 @@ def heuristic_destruction(customer_requirements_dict, solution, j, instance, d):
     #     print(f"Customer {i + 1}: Selected = {solution[i]}")
 
     # print('destruction', added_requirements)
+    total_cost = 0
+    selected_customers = []
     return solution, total_cost, selected_customers, added_requirements
 
 def run_heuristic(instance, k, j, d, num_iterations=1000):
@@ -97,11 +98,12 @@ def run_heuristic(instance, k, j, d, num_iterations=1000):
     best_obj_value = 0
 
     current_solution = [0] * instance.m
+    current_total_cost, selected_customers, added_requirements,obj_value = 0, [], [0] * instance.n, 0
 
     for iteration in range(num_iterations):
         print(f"Iteration {iteration + 1}/{num_iterations}")
 
-        current_solution, current_total_cost, selected_customers, added_requirements = heuristic_destruction(customer_requirements_dict, current_solution, j, instance, d)
+        current_solution, current_total_cost, selected_customers, added_requirements = heuristic_destruction(customer_requirements_dict, current_solution, j, instance, d, selected_customers, current_total_cost,obj_value)
         current_solution, current_total_cost, selected_customers, added_requirements, obj_value = heuristic_construction(customer_requirements_dict, current_solution, k, instance, added_requirements, current_total_cost, selected_customers)
        
         print('current_total_cost', current_total_cost)
