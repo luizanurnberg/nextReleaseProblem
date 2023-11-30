@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Current File",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}\\metaheuristicProgramming\\src\\ig.py",
+            "args": ["${workspaceRoot}\\metaheuristicProgramming\\src\\nrp1.txt", "0.3", "0.2", "1", "0.5"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}
