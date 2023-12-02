@@ -24,6 +24,7 @@ def can_add(customer, total_cost, added_requirements):
     for req in customer_requirements_dict[customer]['requirements']:
         if added_requirements[req] == 0:
             additional_cost += instance.c[req]
+    print(f"Customer: {customer}, Additional Cost: {additional_cost}, Total Cost: {total_cost}")
     if total_cost + additional_cost <= instance.b:
         for req in customer_requirements_dict[customer]['requirements']:
             added_requirements[req] += 1
@@ -91,7 +92,7 @@ def heuristic_destruction(customer_requirements_dict, solution, j, instance, d, 
     selected_customers = []
     return solution, total_cost, selected_customers, added_requirements
 
-def run_heuristic(instance, k, j, d, num_iterations=1000):
+def run_heuristic(instance, k, j, d, num_iterations=100):
     best_solution = 0
     best_total_cost = 0
     best_selected_customers = 0
